@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+   <title>Friends Finder</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+   <link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">
+   <style type="text/css">
+   html {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      max-height: 100vh;
+      background: url("assets/images/friend.jpg");
+      background-position: center 75%;
+      background-attachment: fixed;
+      background-size: cover;
+      background-repeat: no-repeat;
+   }
+
+   hr.style5 {
+      background-color: #fff;
+      border-top: 2px dashed #8c8b8b;
+   }
+
+   hr.style6 {
+      background-color: #fff;
+      border-top: 2px dotted #8c8b8b;
+   }
+   </style>
+</head>
+
+<body>
+   <br>
+   <div class="container">
+      <div class="card-panel hoverable">
+         <h1>
+				About You
+			</h1>
+         <main class="row">
+            <form class="col s12">
+               <div class="row">
+                  <div class="input-field col s12">
+                     <input placeholder="Placeholder" id="user_name" type="text" class="validate">
+                     <label for="user_name">Your Name</label>
+                  </div>
+                  <div class="input-field col s12">
+                     <input placeholder="Placeholder" id="user_photo" type="text" class="validate">
+                     <label for="user_photo">Photo link</label>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 1
+                     </h5>
+                     <h6>
+                     	Your mind is always buzzing with unexplored ideas and plans.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 2
+                     </h5>
+                     <h6>
+                     	Generally speaking, you rely more on your experience than your imagination.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 3
+                     </h5>
+                     <h6>
+                     	You find it easy to stay relaxed and focused even when there is some pressure.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 4
+                     </h5>
+                     <h6>
+                     	You rarely do something just out of sheer curiosity.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 5
+                     </h5>
+                     <h6>
+                     	People can rarely upset you.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 6
+                     </h5>
+                     <h6>
+                     	It is often difficult for you to relate to other people’s feelings.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 7
+                     </h5>
+                     <h6>
+                     	In a discussion, truth should be more important than people’s sensitivities.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 8
+                     </h5>
+                     <h6>
+                     	You rarely get carried away by fantasies and ideas.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 9
+                     </h5>
+                     <h6>
+                     	You think that everyone’s views should be respected regardless of whether they are supported by facts or not.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+                  <div class="col s12 questionaire">
+                     <h5>
+                     	Question 10
+                     </h5>
+                     <h6>
+                     	You feel more energetic after spending time with a group of people.
+                     </h6>
+                     <select class="browser-default options"></select>
+                  </div>
+               </div>
+               <button id="submit" class="btn-large waves-effect waves-light center red accent-1" type="submit" name="action">Submit</button>
+            </form>
+         </main>
+         <hr class="style6">
+         <footer class="footer">
+            <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/71emj/Friend-Finder">GitHub Repo</a></p>
+         </footer>
+      </div>
+   </div>
+   <!-- Modal Structure -->
+   <div id="modal" class="modal">
+      <div class="modal-content">
+         <h4 id="modal_header">Modal Header</h4>
+         <p id="modal_text">A bunch of text</p>
+         <img id="modal_image" src="" />
+      </div>
+      <div class="modal-footer">
+         <button class="modal-action modal-close waves-effect waves-green btn-flat">close</button>
+      </div>
+   </div>
+   <script type="text/javascript">
+   (function($) {
+
+      // materialize initializations
+      $('.modal').modal();
+      $('select').material_select();
+
+
+      const optionString = [
+         "strongly disagree",
+         "slightly disagree",
+         "no comment",
+         "slightly agree",
+         "strongly agree"
+      ];
+
+      for (let i = 1; i <= 5; i++) {
+         $(".options").append(
+            $("<option value='" + i + "'>")
+            .text(
+               i + " - " + optionString[i - 1]
+            )
+         );
+      }
+
+      const questionaire = document.querySelectorAll(".options");
+      console.log(questionaire);
+
+      // have to look into default before writing the pulsing logic
+      $(".options").on("change", function() {});
+
+      $("#submit").on("click", function(e) {
+         e.preventDefault();
+
+         let validateResult = validateInput();
+         if (isNaN(validateResult)) {
+            return modalOpen(validateResult);
+         }
+
+         const scoreArr = new Array();
+         questionaire.forEach((elem) => {
+            scoreArr.push(elem.value);
+         });
+
+         const userData = {
+            name: $("#user_name").val(),
+            photo: $("#user_photo").val(),
+            scores: scoreArr
+         }
+
+         sendRequest(userData);
+      });
+
+      function sendRequest(data) {
+         $.ajax({
+            url: "/api/friends",
+            method: "POST",
+            data: data,
+            traditional: true
+         }).done((response) => {
+            console.log(response);
+            modalOpen(response);
+         });
+      }
+
+      function validateInput() {
+         const name = $("#user_name").val(),
+            img = $("#user_photo").val();
+
+         if (!name || !img) {
+            return "form-empty"; // return modal trigger
+         }
+
+         if (name.match(/[^a-zA-Z\s]/g)) {
+            return "name-invalid";
+         }
+
+         if (!img.match(/([-a-zA-Z0-9:%_\+.~#?&//=]*)/)) {
+            return "image-path-invalid";
+         }
+
+         return 0;
+      }
+
+      function modalOpen(event) {
+         $("#modal_header").text("Oops");
+
+         switch (event) {
+            case "form-empty":
+               $("#modal_text").text("You must fillout all the form");
+               break;
+            case "name-invalid":
+               $("#modal_text").text("Name must be alphabet only");
+               break;
+            case "image-path-invalid":
+               $("#modal_text").text("Image path must be valid http link");
+               break;
+            default:
+               $("#modal_header").text("Your best match is...");
+               $("#modal_text").text(event.name);
+               $("#modal_image").attr("src", event.photo);
+         }
+
+         $('#modal').modal('open');
+      }
+
+
+
+
+
+   }(jQuery));
+   </script>
+</body>
+
+</html>

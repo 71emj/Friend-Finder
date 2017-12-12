@@ -33,14 +33,18 @@ function writeProfileData(user, arr) {
    if (!(arr.lastItem()["name"] === user.name)) {
       arr.push(user);
    }
-   FS.writeFileSync(dataPath), JSON.stringify(arr));
+   console.log(arr);
+   console.log(JSON.stringify(arr));
+   FS.writeFileSync(dataPath, JSON.stringify(arr));
 }
 
-function findMatch(myname, myscore, arr) {
+function findMatch(user, myscore, arr) {
    let closestIndex, curClosest = 99;
 
+   if (!arr[0]) { return user; }
+
    arr.forEach((elem, index) => {
-      if (elem.name === myname) { return; } // fool proof multiple submit
+      if (elem.name === user.name) { return; } // fool proof multiple submit
 
       const curDifference = Math.abs(
          myscore - elem.score.reduce((sum, cur) => {
@@ -56,14 +60,14 @@ function findMatch(myname, myscore, arr) {
 }
 
 function dataHandler(data) {
-   const user = new Profile(data.name, data.photo, data["scores[]"].map((x) => { return parseInt(x); }));
+   const user = new Profile(data.name, data.photo, data.scores.map((x) => { return parseInt(x); }));
    const userScore = user.score.reduce((sum, cur) => {
       return sum + cur;
    });
 
    const profileArr = readProfileData();
-   const matchedProfile = findMatch(user.name, userScore, profileArr); // datatype: object
-
+   const matchedProfile = findMatch(user, userScore, profileArr); // datatype: object
+   console.log(profileArr);
    writeProfileData(user, profileArr);
    return matchedProfile;
 }
