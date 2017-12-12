@@ -1,5 +1,5 @@
 module.exports = function(app) {
-   const DEBUG = true;
+   const DEBUG = false;
 
    const Path = require("path");
    // Express = require("express"),
@@ -20,7 +20,9 @@ module.exports = function(app) {
 
    app.get("/assets/images/:image", (req, res) => {
       // this needs to set to root for consistent display
-      res.sendFile(dataPath + "assets/images/" + req.params.image);
+      DEBUG && console.log(Path.join(__dirname, "../public/assets/images", req.params.image));
+      DEBUG && console.log(dataPath + "assets/images/" + req.params.image);
+      res.sendFile(Path.join(__dirname, "../public/assets/images", req.params.image));
    });
 
    console.log(dataPath);

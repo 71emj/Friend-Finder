@@ -1,4 +1,4 @@
-const DEBUG = true;
+const DEBUG = false;
 
 const FS = require("fs"),
    Path = require("path");
@@ -33,8 +33,8 @@ function writeProfileData(user, arr) {
    if (!(arr.lastItem()["name"] === user.name)) {
       arr.push(user);
    }
-   console.log(arr);
-   console.log(JSON.stringify(arr));
+   DEBUG && console.log(arr);
+   DEBUG && console.log(JSON.stringify(arr));
    FS.writeFileSync(dataPath, JSON.stringify(arr));
 }
 
