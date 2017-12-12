@@ -1,0 +1,24 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "This is an app that can help you find out who in your social group has the highest matching qualities with you  ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Interesting..try start :P\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/71emj/Friend-Finder.git"
+  },
+  "author": "71emj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/71emj/Friend-Finder/issues"
+  },
+  "homepage": "https://github.com/71emj/Friend-Finder#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "path": "^0.12.7"
+  }
+}
